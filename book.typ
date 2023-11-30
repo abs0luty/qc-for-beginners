@@ -5,127 +5,72 @@
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
 #show: project.with(
-  title: "Квантовые вычисления для чайников",
+  title: "Quantum computing for beginners",
   authors: (
-    "Ади Салимгереев",
+    "Adi Salimgereev",
   )
 )
 
 #set heading(numbering: "1.1. ")
 #let task_number = numbering("1.1")
 
-= Комплексные векторные пространства
+#outline()
+#pagebreak()
 
-В квантовой механике, мы очень часто используем так называемые *комплексные векторные пространства*. Если вы уже знакомы с данной темой, можете пропустить эту главу, но крайне рекомендую быстро по ней пройтись.
+= Complex numbers
 
-== На примере $CC^n$ 
+== Basics
 
-Самым простым примером комлпексных векторных пространств является множество векторов с фиксированной длинной. 
+Quantum mechanics oftenly makes use of *complex numbers*.  Complex numbers are elements of a number system that extends real 
+numbers with a specific element denoted as $i$, called *imaginary unit*, which is a solution to $x^2=-1$ ($i = sqrt(-1)$).
 
-Возьмем к примеру комлпексное векторное пространства с размерностью 3: $CC^3 = CC times CC times CC $.
-Элементом такого пространства может быть:
-$ mat(delim: "[",3 + 2i; 3-i;1+2i) $
-Мы можем назвать его вектором $V$.
+Every complex number can be expressed in the form $a + b i$ where $a, b in RR$. $RR$ here is a set of all real numbers. Set of all complex numbers is denoted as $CC$. In the given example, $a$ is called the *real part* of the complex number and $b$ is called the *imaginary part*.
 
-Будем обозначать $i$-ый элемент матрицы соотвествующей вектору как $V_i$. Например $V_2 = 3 - i$, $V_3 = 1 + 2i$.
+Complex numbers can be added and multiplied.
 
-Для элементов комплексных векторных пространств существуют операции, например *сложение*. Возьмем два вектора: $A$ и $B$, которые принадлежат какому-то комплексному векторному пространству $CC^2$:
+*Example*: Let $a = 2 + 3i$ and $b = 1 + 4i$. Find $a + b$, $a - b$ and  $a times b$:
 
-$ A = mat(delim: "[",2 + i; 1 + 2i), B = mat(delim: "[",3 + 2i;1) $
+To compute the sum of two complex numbers, we just need to manually add real and imaginary parts separately: $a + b$ = $2 + 3i + 1 + 4i$ = $3 + 7i$.
 
-Тогда, их сумма тоже будет принадлежать комплексному векторному пространству ($A + B in CC^2$):
-$ mat(delim: "[",2 + i; 1 + 2i) + mat(delim: "[",3 + 2i;1) = mat(delim: "[",5 + 3i; 2 + 2i) = C, C in CC^2 $
+Same applies to subtraction: $a - b = 2 + 3i - 1 - 4i = 1 - i$.
 
-Операцию сложения можно записать так:
+Multiplication is a bit different. To multiply complex numbers, we need to multiply each term of the first complex number with each term of the second one: $a times b = (2 + 3i) times (1 + 4i) = 2 + 6i + 8i + 12i^2$. From the definition of imaginary unit $i$, which is: $i = sqrt(-1)$ follows: $i^2 = -1$. So $12i^2$ can be simplified to just $-12$. So the total value of $a times b$ is $-10 + 14i$.
 
-$ (A + B)_i = A_i + B_i $
+*Exercise 1.1.1*: Find $a/b$, given $a$ and $b$ from the previous example.
 
-*Задание*: Сложите два вектора:
+*Exercise 1.1.2*: Let $a = 4 - 3i$ and $b = 2 + 4i$. Find $a + 2b$, $3a - b$, $4a times (-2b)$ and $(10a)/(3b)$.
 
-$ mat(delim: "[",3 + 13i; 39 + 2i; 3 + 12i; 14 + 2i) + mat(delim: "[",4 + 12i; 3+ 15i; 4+3i; 2+13i) $
+*Exercise 1.1.3*: Prove that addition and multiplication over complex numbers are *commutative* and *associative* operations.
 
-Операция сложения обладает некоторыми свойствами. Например, сложение комлпексных чисел коммутативная операция, также как и операция сложения векторов в комплексном векторном пространстве:
+*_Note_*: binary operation is considered *commutative* if changing the order of the operands doesn't change the result. *Associativity property* is a property of some binary operations, which means that rearranging the parentheses in an expression won't affect the result, example: $(2 + 3) + 4 = 2 + (3 + 4)$.
 
-$ A + B = B + A  $
+== Specific operations with complex numbers
+Real numbers have a unary operation, the absolute value, given by:
 
-Также, операция сложения комплексных векторов ассоциативная, то есть:
+$|x| = sqrt(x^2)$
 
-$ (A + B) + C = A + (B + C)  $
+There is a generalization of this operation for complex numbers, which is also often referred as *modulus*. It is defined as:
 
-*Задание*: Докажите свойства коммутативности и ассоциативности операции сложения над комплексными векторами.
+$|c| = |a + b i| = sqrt(a^2 + b^2)$
 
-Также в комплексном векторе пространстве всегда существует так называемый *нулевой вектор*. Для пространства $CC^3$ он бы выглядил так:
- 
-$ bold(0) = mat(delim: "[",0; 0; 0) $
+*Exercise 1.2.1*: Find the modulus of $3 + 4i$.
 
-Для таких векторов всегда справедливо равенство:
+*Exercise 1.2.2*: Proof that $|a||b|=|a b|$, for all $a, b in CC$.
 
-$ A + bold(0) = bold(0) + A = A $
+*Exercise 1.2.3*: Proof that $|a + b| <= |a| + |b|$, for all $a, b in CC$.
 
-Каждому вектору $A$ соотвествует обратный ему $-A$. Например, возьмем:
+We've shown, that a set of complex numbers $CC$ satisfies certain properties:
 
-$ A = mat(delim: "[",2 + 3i; 3 + i) $
+- Addition and multiplication are commutative.
+- Addition and multiplication are associative.
+- Addition operation has identity: $0$.
+- Multiplication operation has identity: $1$.
+- Subtraction is defined everywhere.
+- Division is defined everywhere except when the value of divisor is $0$.
+- Multiplication distributes with respect to addition.
 
-Тогда существует обратный к нему вектор $-A$ в $CC^2$, матрица которого будет выглядить так:
+A set with operations satisfying all these properties is a *field*. $CC$ is a field of complex numbers. $RR$ is a field of real number.
 
-$ -A = mat(delim: "[",-2 - 3i; -3 - i)  $
+= Answers
 
-Такой, что:
-
-$ A + (-A) = mat(delim: "[",2 + 3i; 3 + i) + mat(delim: "[",-2 -3i; -3 - i) = mat(delim: "[",0; 0) = bold(0)  $
-
-Понятное дело, что для всех обратных векторов справедливо равенство:
-
-$ A + (-A) = bold(0) $
-
-Тогда же обратный к данному $A$ вектор $-A$ можно формально обозначить подобным образом:
-
-$ -A_i = (-A)_i $
-
-Множество $CC^2$ с операцией сложения, обратными векторами и нулевым вектором, где сложение операция коммутативная и ассоциативная формируют так называемую *абелеву или коммутативную группу*.
-
-Теперь возьмем любое обычное комплексное число: $alpha = 7 - 4i$. Это число назовем *скаляром*. Возьмем вектор в $CC^4$:
-
-$ Z = mat(delim: "[",3 + 2i; 2 - i; 3 + 7i; 4 + 2i) $
-
-В нашем комплексном векторном пространстве существует операция *умножения вектора на скаляр*:
-
-$ alpha dot Z = (7 - 4i) dot mat(delim: "[",3 + 2i; 2 - i; 3 + 7i; 4 + 2i) = mat(delim: "[",(7 - 4i) 
-dot (3 + 2i); (7 - 4i) dot (2 - i); (7 - 4i) dot (3 + 7i); (7 - 4i) dot (4 + 2i)) 
-= mat(delim: "[",21 - 12i +14i - 8i^2; 14 - 8i - 7i - 4i^2; 21-12i+49i-28i^2;28-16i+14i-8i^2)=mat(delim: "[",29+2i;18-15i;49+37i;36-2i) $
-
-Коротко ее можно записать так:
-
-$ (alpha dot A)_i = alpha dot A_i $
-
-*Задание*: Умножьте скаляр $2+3i$ на вектор $mat(delim:"[", 3+5i;2i;-6i;4+2i)$.
-
-Умножение на скаляр также имеет некоторые свойства:
-- 1. $1 dot A = A$
-- 2. $alpha dot (beta dot A) = (alpha times beta) dot A$
-- 3. $alpha dot (A + B) = alpha dot A + alpha dot B$
-- 4. $(alpha + beta) dot A = alpha dot A + beta dot A$
-Где: $alpha,beta in CC$ и $A, B in CC^n$
-
-*Задание*: Докажите последние 2 из приведенных свойств (*3-ье* и *4-ое*).
-
-== Что такое комплексное векторное пространство?
-
-Есть много других примеров комплексных векторных пространств. Но для начала нам необходимо будет расширить
-наши границы и представить формальное определение комплексного векторного пространства.
-
-*Комлпексное векторное пространство* - не пустое множество $VV$ с 3 различными операциями:
-- Сложение: $VV times VV --> VV$,
-- Отрицание: $VV --> VV$,
-- Скалярное произведение: $CC times VV --> VV$
-и *нулевым вектором,* $bold(0) in VV$. Эти операции должны соблюдать некоторые свойства:
-- 1. Коммутативность операции сложения: A + B = B + A,
-- 2. Ассоциативность операции сложения: (A + B) + C = A + (B + C),
-- 3. Существование нейтрального элемента $bold(0)$ операции сложения: $A + bold(0) = bold(0) + A = A$,
-- 4. Каждому вектору соотвествует обратный, такой что: $A + (-A) = (-A) + A = bold(0)$
-- 5. Унитарность: $1 dot A = A$
-- 6. Ассоциативность умножения на скаляр $alpha dot (beta dot A) = (alpha times beta) dot A$
-- 7. Дистрибутивность операции умножения на скаляр относительно операции  
- сложения векторов: $alpha dot (A + B) = alpha dot A + alpha dot B$
-- 8. Дистрибутивность операции умножения на скаляр относительно операции  
- сложения скаляров: $(alpha + beta) dot A = alpha dot A + beta dot A$
+*1.1.1*: $14/17-5/17i$; *1.1.2*: $8 + 5i$; $10-13i$; $-160-80i$; $-2/3-11/3i$; *1.2.1*: $5$; 
